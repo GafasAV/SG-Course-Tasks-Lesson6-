@@ -1,4 +1,4 @@
-from task6_3.db_connector import DBConnector
+from db_connector import DBConnector
 
 
 __author__ = "Andrew Gafiychuk"

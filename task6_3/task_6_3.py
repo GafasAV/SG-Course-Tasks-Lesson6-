@@ -4,7 +4,7 @@ import re
 import aiohttp
 
 from lxml import html
-from task6_3.db_connector import DBConnector
+from db_connector import DBConnector
 
 
 __author__ = "Andrew Gafiychuk"
@@ -213,7 +213,7 @@ class Scrapper(object):
 
                 return post_data
             else:
-                logging.debug("[+]POST get error...\n"
+                logging.debug("[+]Topic post 'get' error...\n"
                               "{0}".format(response.status))
 
 

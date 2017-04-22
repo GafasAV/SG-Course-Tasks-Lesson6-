@@ -29,6 +29,9 @@ class DBConnector(object):
         self.db_name = db_name
         self.table = table
 
+        self.conn = None
+        self.cursor = None
+
         self._connect()
 
     def __del__(self):
@@ -56,10 +59,12 @@ class DBConnector(object):
             logging.debug("[+]DB Connected success !!!")
 
         except psycopg2.Error as db_err:
-            logging.debug("[+]DB Connecting problem...\n"
+            logging.error("[+]DB Connecting problem...\n"
                           "{0}".format(db_err))
             if self.conn:
                 self.conn.close()
+
+            raise db_err
 
     def _create_table(self):
         """
@@ -70,11 +75,11 @@ class DBConnector(object):
         try:
             self.cursor.execute(
                 "CREATE TABLE IF NOT EXISTS {0}"
-                "(id INTEGER NOT NULL DEFAULT nextval('auto_post_id'),"
-                "author VARCHAR (20),"
-                "title VARCHAR ,"
+                "(id SERIAL PRIMARY KEY,"
+                "author VARCHAR (120),"
+                "title TEXT ,"
                 "link VARCHAR ,"
-                "post VARCHAR);".format(self.table))
+                "post TEXT);".format(self.table))
 
             self.conn.commit()
 
@@ -92,18 +97,19 @@ class DBConnector(object):
         """
         try:
             self.cursor.execute(
-                "INSERT INTO {0} (author, title, link, post)"
-                "VALUES (%s, %s, %s, %s);"
-                .format(self.table), (author, title, link, post))
+                '''INSERT INTO {0} (author, title, link, post)
+                 VALUES (%s, %s, %s, %s);'''.format(self.table),
+                (author, title, link, post))
 
             self.conn.commit()
 
             print("Data saved...")
 
         except psycopg2.Error as db_err:
-            logging.debug("[+]Data save error...\n"
+            logging.error("[+]Data save error...\n"
                           "[+]DB\Connecting problem..."
                           "{0}".format(db_err))
+            raise db_err
 
     def get_all_data(self):
         """
@@ -128,8 +134,8 @@ class DBConnector(object):
         """
         try:
             self.cursor.execute(
-                "SELECT * FROM {0} WHERE author=%(auth)s"
-                .format(self.table), {'auth': author})
+                "SELECT * FROM {0} WHERE author = %s"
+                .format(self.table), (author, ))
 
             data = self.cursor.fetchall()
 
