@@ -234,6 +234,6 @@ if __name__ == "__main__":
         print("="*130)
         print("="*130)
 
-        db.push_data(*record)
+        db.insert_if_not_exist(*record)
 
     logging.debug("[+]App done !!!")
