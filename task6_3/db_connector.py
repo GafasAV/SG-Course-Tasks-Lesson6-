@@ -138,4 +138,28 @@ class DBConnector(object):
 
         except psycopg2.Error as db_err:
             logging.error("[+]Get data error...\n"
-                          "{0}".format(db_err))
+                          "{0}".format(db_err)
+                          
+    def insert_if_not_exist(self, author, title, link, post):
+        """
+        Insert data into DB without duplicate.
+        
+        """
+        try:
+            self.cursor.execute(
+                "INSERT INTO {0} (author, title, link, post) "
+                "SELECT %(auth)s, %(title)s, %(link)s, %(post)s"
+                "WHERE NOT EXISTS "
+                "(SELECT author, title FROM {0} WHERE "
+                "author=%(auth)s AND title=%(title)s)"
+                .format(self.table),
+                {'auth': author, 'title': title,
+                 'link': link, 'post': post})
+
+            self.conn.commit()
+
+            print("Data saved or already exists !")
+
+        except psycopg2.Error as db_err:
+            logging.error("[+]Data insert error...\n"
+                          "{0}".format(db_err)) 
