@@ -61,10 +61,6 @@ class DBConnector(object):
         except psycopg2.Error as db_err:
             logging.error("[+]DB Connecting problem...\n"
                           "{0}".format(db_err))
-            if self.conn:
-                self.conn.close()
-
-            raise db_err
 
     def _create_table(self):
         """
