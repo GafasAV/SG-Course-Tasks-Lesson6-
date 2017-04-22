@@ -85,7 +85,6 @@ class DBConnector(object):
         except psycopg2.Error as db_err:
             logging.debug("[+]Table creating error...\n"
                           "{0}".format(db_err))
-            raise db_err
 
     def push_data(self, author, title, link, post):
         """
@@ -106,7 +105,6 @@ class DBConnector(object):
             logging.error("[+]Data save error...\n"
                           "[+]DB\Connecting problem..."
                           "{0}".format(db_err))
-            raise db_err
 
     def get_all_data(self):
         """
@@ -123,7 +121,6 @@ class DBConnector(object):
         except psycopg2.Error as db_err:
             logging.error("[+]Get data error...\n"
                           "{0}".format(db_err))
-            raise db_err
 
     def get_data_by_author(self, author):
         """
@@ -142,4 +139,3 @@ class DBConnector(object):
         except psycopg2.Error as db_err:
             logging.error("[+]Get data error...\n"
                           "{0}".format(db_err))
-            raise db_err
