@@ -64,7 +64,7 @@ class DBConnector(object):
 
     def _create_table(self):
         """
-        Create table in self.table.
+        Create table in standart DB postgre.
         Table - overclockers.
         
         """
@@ -140,12 +140,3 @@ class DBConnector(object):
         except psycopg2.Error as db_err:
             logging.debug("[+]Get data error...\n"
                           "{0}".format(db_err))
-
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    logging.debug("[+]App started...")
-
-    db = DBConnector()
-
-    logging.debug("[+]App done !!!")
