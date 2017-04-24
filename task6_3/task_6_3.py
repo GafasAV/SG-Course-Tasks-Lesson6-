@@ -176,6 +176,9 @@ class Scrapper(object):
         return data-tuple.
         
         """
+
+        # cut session id part from url
+        url = url.split('&sid')[0]
         post_url = 'http://forum.overclockers.ua' + url
 
         async with self.session.get(post_url) as response:
