@@ -155,5 +155,6 @@ class DBConnector(object):
             print("Data saved or already exists !")
 
         except psycopg2.Error as db_err:
-            logging.error(db_err.pgerror)
+            logging.error("[+]Data insert error...\n"
+                          "{0}".format(db_err.pgerror))
             logging.error(db_err.diag.message_primary)
