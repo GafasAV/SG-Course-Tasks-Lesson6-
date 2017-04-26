@@ -1,0 +1,11 @@
+Files destinations:
+- task_6_3.py - Main program to get\load\parse\save posts.
+
+- psg_connector.py - Implement simple PostgreDB interface to save\load posts.
+- test_postgre.py - Simple application to test data SELECT from DB.
+                    SELECT all posts or SELECT by author name.
+
+- mongo_connector.py - Implement simple MongoDB interface to save/load data.
+- test_mongo.py - Simple app to test data INSERT, FIND from MongoDB.
+                  Get ALL docs from collection, Get ALL docs from collections by author, Insert data.
+                  Create "test" DB and COLLECTION for some data manipulation.
