@@ -1,5 +1,0 @@
-Files destinations:
-- task_6_3.py - Main program to get\load\parse\save posts.
-- db_connector.py - Implement simple DB interface to save\load posts.
-- get_data.py - Simple application to test data SELECT from DB.
-                SELECT all posts or SELECT by author name.
